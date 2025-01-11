@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Hub</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0 auto;
+        }
+
+        .refresh-btn {
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            transition: transform 0.3s;
+        }
+
+        .refresh-btn:hover {
+            transform: rotate(180deg);
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .search-button {
+            padding: 0.8rem 1.5rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-button:hover {
+            background-color: #0056b3;
+        }
+
+        .news-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1;
+        }
+
+        .category-badge.technology {
+            background-color: #007bff;
+        }
+
+        .category-badge.jobs {
+            background-color: #28a745;
+        }
+
+        .news-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .news-content {
+            padding: 1rem;
+        }
+
+        .news-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .news-source {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-description {
+            color: #555;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .error-message {
+            background-color: #ff4444;
+            color: white;
+            padding: 1rem;
+            margin: 1rem;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 2rem 0;
+            color: #333;
+            font-size: 2rem;
+        }
+
+        .timestamp {
+            color: #666;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1><i class="fas fa-newspaper"></i> News Hub</h1>
+        <button onclick="location.reload()" class="refresh-btn" title="Refresh news">
+            <i class="fas fa-sync-alt"></i>
+        </button>
+    </div>
+
+    <div class="search-container">
+        <!-- <form method="POST" class="search-form"> -->
+            <form method="POST" action="{{ url_for('news_search') }}" class="search-form"></form>
+            <input type="text" name="keyword" class="search-input" placeholder="Search news..." required>
+            <button type="submit" class="search-button">
+                <i class="fas fa-search"></i> Search
+            </button>
+        </form>
+    </div>
+
+    {% if error %}
+    <div class="error-message">
+        <i class="fas fa-exclamation-circle"></i> Error: {{ error }}
+    </div>
+    {% endif %}
+
+    <div class="news-container">
+        {% if search_articles %}
+            <h2 class="section-title">Search Results for "{{ keyword }}"</h2>
+            <div class="news-grid">
+                {% for article in search_articles %}
+                    <div class="news-card">
+                        {% if article.urlToImage %}
+                            <img src="{{ article.urlToImage }}" alt="{{ article.title }}" class="news-image">
+                        {% else %}
+                            <img src="https://via.placeholder.com/400x200?text=No+Image+Available" alt="No image available" class="news-image">
+                        {% endif %}
+                        <div class="news-content">
+                            <h3 class="news-title">{{ article.title }}</h3>
+                            <p class="news-source">
+                                <i class="fas fa-building"></i> {{ article.source.name }}
+                                {% if article.author %}
+                                    | <i class="fas fa-user"></i> {{ article.author }}
+                                {% endif %}
+                            </p>
+                            {% if article.description %}
+                                <p class="news-description">{{ article.description[:150] }}...</p>
+                            {% endif %}
+                            <a href="{{ article.url }}" target="_blank" class="read-more">Read More</a>
+                            <p class="timestamp">
+                                <i class="far fa-clock"></i> {{ article.publishedAt.split('T')[0] }}
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% elif articles %}
+            <h2 class="section-title">Latest Tech & Job News</h2>
+            <div class="news-grid">
+                {% for article in articles %}
+                    <div class="news-card">
+                        <span class="category-badge {% if article.category == 'Technology' %}technology{% else %}jobs{% endif %}">
+                            {{ article.category }}
+                        </span>
+                        {% if article.urlToImage %}
+                            <img src="{{ article.urlToImage }}" alt="{{ article.title }}" class="news-image">
+                        {% else %}
+                            <img src="https://via.placeholder.com/400x200?text=No+Image+Available" alt="No image available" class="news-image">
+                        {% endif %}
+                        <div class="news-content">
+                            <h3 class="news-title">{{ article.title }}</h3>
+                            <p class="news-source">
+                                <i class="fas fa-building"></i> {{ article.source.name }}
+                                {% if article.author %}
+                                    | <i class="fas fa-user"></i> {{ article.author }}
+                                {% endif %}
+                            </p>
+                            {% if article.description %}
+                                <p class="news-description">{{ article.description[:150] }}...</p>
+                            {% endif %}
+                            <a href="{{ article.url }}" target="_blank" class="read-more">Read More</a>
+                            <p class="timestamp">
+                                <i class="far fa-clock"></i> {{ article.publishedAt.split('T')[0] }}
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

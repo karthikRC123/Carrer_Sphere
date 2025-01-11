@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerSphere - Personalized Career Guidance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>CareerSphere</h1>
+        <p>Your Gateway to Informed Career Choices</p>
+    </header>
+
+    <nav>
+        <a href="{{   url_for('about')   }}">About us</a>
+        <a href="#real-time-market">Contact us</a>   
+        <a href="#career-planning">Trend of the Day</a>
+        <a class="bg" href="{{ url_for('login') }}">Sign</a>
+        <a class="bg" href="{{ url_for('login') }}">Login</a>
+    </nav>
+
+    <div class="container">
+        <div class="feature" id="personalized-guidance">
+            <h2><a href="{{ url_for('personal') }}">Personalized Career Guidance</a></h2>
+        </div>
+
+        <div class="feature" id="real-time-market">
+            <h2><a href="{{ url_for('realtime') }}">Real-Time Market Alignment</a></h2>
+            
+        </div>
+
+        <div class="feature" id="interactive-tools">
+            <h2>Interactive Tools for Exploration</h2>
+        </div>
+
+        <div class="feature" id="mentorship">
+            <h2>Mentorship and Networking Opportunities</h2>
+        </div>
+
+        <div class="cta">
+            <button onclick="alert('Welcome to CareerSphere! Start your journey today!')">Get Started</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 CareerSphere. All rights reserved.</p>
+        <p>Empowering students for a brighter future.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

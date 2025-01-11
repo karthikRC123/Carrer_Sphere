@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerSphere</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Reset and basic setup */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header styling */
+        header {
+            background-color: #0047ab;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-top: 5px;
+        }
+
+        /* Navigation bar styling */
+        nav {
+            background-color: #003366;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s, text-decoration 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffcc00;
+            text-decoration: underline;
+        }
+
+        /* Container styling */
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .image {
+            flex: 2;
+            background-image: url('career.png');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.85);
+        }
+
+        .text {
+            flex: 3;
+            padding: 5%;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        .text h1 {
+            font-size: 3rem;
+            color: #0047ab;
+            margin-bottom: 20px;
+        }
+
+        .text img {
+            width: 70%;
+            height: auto;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .text h2 {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            color: #333;
+            text-align: left;
+        }
+
+        .text h2 span {
+            font-weight: bold;
+            color: #0047ab;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>CareerSphere</h1>
+        <p>Your Gateway to Informed Career Choices</p>
+    </header>
+
+    <nav>
+        <a href="{{  url_for('index')  }}">Home</a>
+        <a href="t1.html">About Us</a>
+        <a href="#real-time-market">Contact Us</a>
+        <a href="#career-planning">Trend of the Day</a>
+    </nav>
+
+    <div class="container">
+        <div class="image"></div>
+        <div class="text">
+            <h1>Welcome to CareerSphere</h1>
+            <img src="https://thumbs.dreamstime.com/b/career-development-related-word-cloud-hand-drawing-black-concept-blackboard-56029953.jpg" alt="Career Development Word Cloud">
+            <h2>
+                <span>&#8594;</span> CareerSphere is an online platform that guides students in making informed career choices using artificial intelligence.<br><br>
+                <span>&#8594;</span> It analyzes students' strengths, interests, academic performance, and extracurricular activities to provide personalized career suggestions.<br><br>
+                <span>&#8594;</span> The platform updates with real-time data on job market trends and in-demand skills, keeping students informed about emerging industries.<br><br>
+                <span>&#8594;</span> It offers multilingual resources to ensure inclusivity and equal access to career guidance for students from diverse backgrounds, including rural communities.<br><br>
+                <span>&#8594;</span> CareerSphere connects students with mentors and professionals, offering mentorship, webinars, and networking opportunities to enhance employability.
+            </h2>
+        </div>
+    </div>
+</body>
+
+</html>
